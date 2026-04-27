@@ -1,0 +1,43 @@
+.saiba-hero {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 80vh;
+    padding: 50px;
+    background: url("/static/saibamais.png") no-repeat center center;
+    background-size: cover;
+    color: #fff;
+}
+
+.texto {
+    max-width: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.texto h2 {
+    color: #fff;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.texto p {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.texto ul {
+    list-style: none;
+    padding: 0;
+    font-size: 1.1em;
+}
+
+.texto ul li {
+    margin: 8px 0;
+}
+
+
+
+
+
