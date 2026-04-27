@@ -1,27 +1,42 @@
 <h2>Agendar Coleta</h2>
+
 <form method="POST">
-  Usuário:
-  <select name="usuario_id" required>
-    {% for u in usuarios %}
-      <option value="{{ u.id }}">{{ u.nome }}</option>
-    {% endfor %}
-  </select><br>
 
-  Tipo de coleta:
-  <select name="tipo" required>
-    <option value="Eletrônicos">Eletrônicos</option>
-    <option value="Plásticos">Plásticos</option>
-    <option value="Móveis">Móveis</option>
-  </select><br>
+    Usuário:
+    <select name="usuario_id" required>
+        {% for u in usuarios %}
+        <option value="{{ u.id }}">
+            {{ u.nome }}
+        </option>
+        {% endfor %}
+    </select>
+    <br><br>
 
-  Local da coleta:
-  <select name="local" required>
-    {% for l in locais %}
-      <option value="{{ l.nome }}">{{ l.nome }}</option>
-    {% endfor %}
-  </select><br>
+    Tipo de coleta:
+    <select name="tipo" required>
+        <option value="Eletrônicos">Eletrônicos</option>
+        <option value="Plásticos">Plásticos</option>
+        <option value="Móveis">Móveis</option>
+    </select>
+    <br><br>
 
-  Data: <input type="date" name="data" required><br>
-  <button type="submit">Agendar</button>
+    Local da coleta:
+    <select name="local" required>
+        {% for l in locais %}
+        <option value="{{ l.nome }}">
+            {{ l.nome }}
+        </option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    Data:
+    <input type="date" name="data" required>
+    <br><br>
+
+    <button type="submit">
+        Agendar
+    </button>
+
 </form>
 

@@ -1,32 +1,31 @@
 {% extends "base.html" %}
+
 {% block title %}Mapa{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='mapa.css') }}">
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
 {% endblock %}
+
 {% block content %}
 <h2>Mapa de Pontos de Coleta</h2>
 <div id="map"></div>
 {% endblock %}
+
 {% block extra_js %}
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 <script>
-    var map = L.map('map').setView([-22.566, -47.400], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+const locais = JSON.parse('{{ locais | tojson | safe }}');
 
-    // locais_json vem do app.py como string JSON
-    var locais = JSON.parse('{{ locais_json|safe }}' || '[]');
-    console.log("Locais carregados:", locais);
+var map = L.map('map').setView([-22.566, -47.400], 13);
 
-    locais.forEach(function(l) {
-        if (l.latitude && l.longitude) {
-            L.marker([l.latitude, l.longitude]).addTo(map)
-                .bindPopup("<b>" + l.nome + "</b><br>" + l.endereco);
-        }
-    });
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+locais.forEach(function(l){
+    L.marker([l.latitude, l.longitude])
+        .addTo(map)
+        .bindPopup("<b>"+l.nome+"</b><br>"+l.endereco);
+});
 </script>
 {% endblock %}
-
-
-
-
