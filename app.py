@@ -4,9 +4,10 @@ import os
 
 app = Flask(__name__)
 
-# Ajuste da URI para usar pg8000
+# Configuração do banco de dados
 db_url = os.environ.get("DATABASE_URL")
 if db_url and db_url.startswith("postgres://"):
+    # Render usa postgres://, mas SQLAlchemy espera postgresql+pg8000://
     db_url = db_url.replace("postgres://", "postgresql+pg8000://")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url
@@ -22,7 +23,6 @@ class Usuario(db.Model):
     nome = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     agendamentos = db.relationship("Agendamento", backref="usuario", lazy=True)
-
 
 class Agendamento(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -72,36 +72,24 @@ def cadastro_usuario():
     if request.method == "POST":
         nome = request.form["nome"]
         email = request.form["email"]
-
         novo_usuario = Usuario(nome=nome, email=email)
         db.session.add(novo_usuario)
         db.session.commit()
-
         return redirect(url_for("index"))
-
     return render_template("cadastro_usuario.html")
 
 @app.route("/agendar_coleta", methods=["GET", "POST"])
 def agendar_coleta():
     usuarios = Usuario.query.all()
-
     if request.method == "POST":
         usuario_id = request.form["usuario_id"]
         tipo = request.form["tipo"]
         data = request.form["data"]
         local = request.form["local"]
-
-        novo_agendamento = Agendamento(
-            usuario_id=usuario_id,
-            tipo=tipo,
-            data=data,
-            local=local
-        )
+        novo_agendamento = Agendamento(usuario_id=usuario_id, tipo=tipo, data=data, local=local)
         db.session.add(novo_agendamento)
         db.session.commit()
-
         return redirect(url_for("index"))
-
     return render_template("agendar_coleta.html", usuarios=usuarios, locais=ECOPOINTS)
 
 @app.route("/admin/agendamentos")
