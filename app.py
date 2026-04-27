@@ -26,12 +26,29 @@ def saibamais():
 def mapa():
     return render_template("mapa.html")
 
-@app.route("/admin")
-def admin():
+@app.route("/admin_locais")
+def admin_locais():
     return render_template("admin_locais.html")
+
+@app.route("/admin_agendamentos")
+def admin_agendamentos():
+    return render_template("admin_agendamentos.html")
+
+@app.route("/admin_usuarios")
+def admin_usuarios():
+    return render_template("admin_usuarios.html")
+
+@app.route("/editar_agendamento")
+def editar_agendamento():
+    return render_template("editar_agendamento.html")
+
+@app.route("/editar_usuario")
+def editar_usuario():
+    return render_template("editar_usuario.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
