@@ -65,6 +65,7 @@ def listar_agendamentos():
 
 @app.route("/mapa")
 def mapa():
+    # Aqui garantimos que locais_json sempre tem conteúdo
     locais_json = json.dumps(ECOPOINTS, ensure_ascii=False)
     return render_template("mapa.html", locais_json=locais_json)
 
@@ -72,4 +73,6 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True)
+
+
 
