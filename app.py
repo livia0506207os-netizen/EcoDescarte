@@ -22,7 +22,6 @@ class Agendamento(db.Model):
     local = db.Column(db.String(100), nullable=False)
     usuario_id = db.Column(db.Integer, db.ForeignKey("usuario.id"), nullable=False)
 
-# Lista fixa de ecopontos
 ECOPOINTS = [
     {"nome": "Ecoponto Anavec", "endereco": "Rua Prof. Otávio Pimenta Reis – Jd. Anavec", "latitude": -22.5695, "longitude": -47.4012},
     {"nome": "Ecoponto Santa Eulália", "endereco": "Av. Dr. Antônio Prince de Oliveira – Jd. Santa Eulália", "latitude": -22.5638, "longitude": -47.4087},
@@ -66,7 +65,6 @@ def listar_agendamentos():
 
 @app.route("/mapa")
 def mapa():
-    # Passa os locais como string JSON para o template
     locais_json = json.dumps(ECOPOINTS, ensure_ascii=False)
     return render_template("mapa.html", locais_json=locais_json)
 
@@ -74,3 +72,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True)
+

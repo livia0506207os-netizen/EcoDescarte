@@ -14,9 +14,9 @@
     var map = L.map('map').setView([-22.566, -47.400], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    // ✅ Agora locais vêm como string JSON e são parseados corretamente
-    var locais = JSON.parse('{{ locais_json|safe }}');
-    console.log("Locais carregados:", locais); // debug no console
+    // ✅ locais_json sempre vem como string JSON válida
+    var locais = JSON.parse('{{ locais_json|safe }}' || '[]');
+    console.log("Locais carregados:", locais);
 
     locais.forEach(function(l) {
         if (l.latitude && l.longitude) {
@@ -26,5 +26,6 @@
     });
 </script>
 {% endblock %}
+
 
 
