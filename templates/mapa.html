@@ -5,24 +5,11 @@
 <div id="map"></div>
 {% endblock %}
 
-{% block extra_css %}
-<style>
-  #map {
-    height: 500px;
-    width: 100%;
-    border: 2px solid #4CAF50;
-    border-radius: 8px;
-    margin-top: 20px;
-  }
-</style>
-{% endblock %}
-
 {% block extra_js %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
-  // Recebe os locais do Flask já convertidos em JSON
   const locais = {{ locais | tojson | safe }};
 
   const map = L.map('map').setView([-22.565, -47.400], 13);
@@ -38,4 +25,3 @@
   });
 </script>
 {% endblock %}
-
