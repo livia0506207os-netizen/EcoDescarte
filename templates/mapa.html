@@ -31,7 +31,7 @@
     attribution: '© OpenStreetMap contributors'
   }).addTo(map);
 
-  // Adiciona marcadores manualmente
+  // Lista fixa de ecopontos
   const locais = [
     {
       nome: "Ecoponto Anavec",
@@ -53,6 +53,7 @@
     }
   ];
 
+  // Adiciona marcadores para cada ecoponto
   locais.forEach(local => {
     L.marker([local.latitude, local.longitude])
       .addTo(map)
