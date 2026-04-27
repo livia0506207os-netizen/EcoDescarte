@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-# Ajuste da URI para psycopg2-binary
+# Configuração do banco (usando psycopg2-binary)
 db_url = os.environ.get("DATABASE_URL")
 if db_url and db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql://")

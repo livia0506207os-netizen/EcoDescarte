@@ -18,42 +18,19 @@
 {% endblock %}
 
 {% block extra_js %}
-<!-- Importa Leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
-  // Inicializa o mapa centralizado em Limeira
+  // Recebe os locais do Flask já convertidos em JSON
+  const locais = {{ locais | tojson | safe }};
+
   const map = L.map('map').setView([-22.565, -47.400], 13);
 
-  // Adiciona camada de tiles (mapa base)
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
   }).addTo(map);
 
-  // Lista fixa de ecopontos
-  const locais = [
-    {
-      nome: "Ecoponto Anavec",
-      endereco: "Rua Prof. Otávio Pimenta Reis – Jd. Anavec",
-      latitude: -22.5695,
-      longitude: -47.4012
-    },
-    {
-      nome: "Ecoponto Santa Eulália",
-      endereco: "Av. Dr. Antônio Prince de Oliveira – Jd. Santa Eulália",
-      latitude: -22.5638,
-      longitude: -47.4087
-    },
-    {
-      nome: "Ecoponto Lagoa Nova",
-      endereco: "Av. Dr. Antônio de Luna – Jd. Lagoa Nova",
-      latitude: -22.5559,
-      longitude: -47.4143
-    }
-  ];
-
-  // Adiciona marcadores para cada ecoponto
   locais.forEach(local => {
     L.marker([local.latitude, local.longitude])
       .addTo(map)
@@ -61,3 +38,4 @@
   });
 </script>
 {% endblock %}
+
