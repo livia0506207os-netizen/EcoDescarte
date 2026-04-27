@@ -24,6 +24,13 @@ class Agendamento(db.Model):
     local = db.Column(db.String(100), nullable=False)
     usuario_id = db.Column(db.Integer, db.ForeignKey("usuario.id"), nullable=False)
 
+# Lista de ecopontos reais de Limeira
+ECOPOINTS = [
+    {"nome": "Ecoponto Anavec", "endereco": "Rua Prof. Otávio Pimenta Reis – Jd. Anavec", "latitude": -22.5695, "longitude": -47.4012},
+    {"nome": "Ecoponto Santa Eulália", "endereco": "Av. Dr. Antônio Prince de Oliveira – Jd. Santa Eulália", "latitude": -22.5638, "longitude": -47.4087},
+    {"nome": "Ecoponto Lagoa Nova", "endereco": "Av. Dr. Antônio de Luna – Jd. Lagoa Nova", "latitude": -22.5559, "longitude": -47.4143}
+]
+
 # Rotas
 @app.route("/")
 def index():
@@ -43,11 +50,6 @@ def cadastro_usuario():
 @app.route("/agendar_coleta", methods=["GET", "POST"])
 def agendar_coleta():
     usuarios = Usuario.query.all()
-    locais = [
-        {"nome": "Ecoponto Anavec", "endereco": "Rua Prof. Otávio Pimenta Reis – Jd. Anavec", "latitude": -22.5695, "longitude": -47.4012},
-        {"nome": "Ecoponto Santa Eulália", "endereco": "Av. Dr. Antônio Prince de Oliveira – Jd. Santa Eulália", "latitude": -22.5638, "longitude": -47.4087},
-        {"nome": "Ecoponto Lagoa Nova", "endereco": "Av. Dr. Antônio de Luna – Jd. Lagoa Nova", "latitude": -22.5559, "longitude": -47.4143}
-    ]
     if request.method == "POST":
         usuario_id = request.form["usuario_id"]
         tipo = request.form["tipo"]
@@ -57,7 +59,7 @@ def agendar_coleta():
         db.session.add(novo_agendamento)
         db.session.commit()
         return redirect(url_for("index"))
-    return render_template("agendar_coleta.html", usuarios=usuarios, locais=locais)
+    return render_template("agendar_coleta.html", usuarios=usuarios, locais=ECOPOINTS)
 
 @app.route("/admin/agendamentos")
 def listar_agendamentos():
@@ -67,18 +69,15 @@ def listar_agendamentos():
 
 @app.route("/mapa")
 def mapa():
-    locais = [
-        {"nome": "Ecoponto Anavec", "endereco": "Rua Prof. Otávio Pimenta Reis – Jd. Anavec", "latitude": -22.5695, "longitude": -47.4012},
-        {"nome": "Ecoponto Santa Eulália", "endereco": "Av. Dr. Antônio Prince de Oliveira – Jd. Santa Eulália", "latitude": -22.5638, "longitude": -47.4087},
-        {"nome": "Ecoponto Lagoa Nova", "endereco": "Av. Dr. Antônio de Luna – Jd. Lagoa Nova", "latitude": -22.5559, "longitude": -47.4143}
-    ]
-    locais_json = json.dumps(locais)
+    locais_json = json.dumps(ECOPOINTS)
     return render_template("mapa.html", locais_json=locais_json)
 
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True)
+
+
 
 
 
