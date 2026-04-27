@@ -1,31 +1,62 @@
 {% extends "base.html" %}
 
-{% block title %}Mapa{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='mapa.css') }}">
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
-{% endblock %}
-
 {% block content %}
-<h2>Mapa de Pontos de Coleta</h2>
+<h2>Mapa de Ecopontos</h2>
 <div id="map"></div>
 {% endblock %}
 
+{% block extra_css %}
+<style>
+  #map {
+    height: 500px;
+    width: 100%;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+</style>
+{% endblock %}
+
 {% block extra_js %}
+<!-- Importa Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
-const locais = JSON.parse('{{ locais | tojson | safe }}');
+  // Inicializa o mapa centralizado em Limeira
+  const map = L.map('map').setView([-22.565, -47.400], 13);
 
-var map = L.map('map').setView([-22.566, -47.400], 13);
+  // Adiciona camada de tiles (mapa base)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+  // Adiciona marcadores manualmente
+  const locais = [
+    {
+      nome: "Ecoponto Anavec",
+      endereco: "Rua Prof. Otávio Pimenta Reis – Jd. Anavec",
+      latitude: -22.5695,
+      longitude: -47.4012
+    },
+    {
+      nome: "Ecoponto Santa Eulália",
+      endereco: "Av. Dr. Antônio Prince de Oliveira – Jd. Santa Eulália",
+      latitude: -22.5638,
+      longitude: -47.4087
+    },
+    {
+      nome: "Ecoponto Lagoa Nova",
+      endereco: "Av. Dr. Antônio de Luna – Jd. Lagoa Nova",
+      latitude: -22.5559,
+      longitude: -47.4143
+    }
+  ];
 
-locais.forEach(function(l){
-    L.marker([l.latitude, l.longitude])
-        .addTo(map)
-        .bindPopup("<b>"+l.nome+"</b><br>"+l.endereco);
-});
+  locais.forEach(local => {
+    L.marker([local.latitude, local.longitude])
+      .addTo(map)
+      .bindPopup(`<b>${local.nome}</b><br>${local.endereco}`);
+  });
 </script>
 {% endblock %}
