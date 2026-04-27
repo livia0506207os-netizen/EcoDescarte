@@ -70,7 +70,8 @@ def index():
 
 @app.route("/mapa")
 def mapa():
-    return render_template("mapa.html")
+    # Passa os ecopontos para o template
+    return render_template("mapa.html", locais=ECOPOINTS)
 
 @app.route("/agendamento")
 def agendamento():
