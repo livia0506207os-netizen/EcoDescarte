@@ -13,15 +13,18 @@
 <script>
     var map = L.map('map').setView([-22.566, -47.400], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
     var locais = JSON.parse('{{ locais_json|safe }}');
     locais.forEach(function(l) {
         if (l.latitude && l.longitude) {
             L.marker([l.latitude, l.longitude]).addTo(map)
-                .bindPopup(l.nome + "<br>" + l.endereco);
+                .bindPopup("<b>" + l.nome + "</b><br>" + l.endereco);
         }
     });
 </script>
 {% endblock %}
+
+
 
 
 

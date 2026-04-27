@@ -14,7 +14,16 @@
     <option value="Móveis">Móveis</option>
   </select><br>
 
+  Local da coleta:
+  <select name="local" required>
+    {% for l in locais %}
+      <option value="{{ l.nome }}">{{ l.nome }}</option>
+    {% endfor %}
+  </select><br>
+
   Data: <input type="date" name="data" required><br>
   <button type="submit">Agendar</button>
 </form>
+
+
 

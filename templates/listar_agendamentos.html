@@ -1,0 +1,22 @@
+<h2>Usuários Cadastrados</h2>
+<table border="1">
+  <tr><th>ID</th><th>Nome</th><th>Email</th></tr>
+  {% for u in usuarios %}
+  <tr><td>{{ u.id }}</td><td>{{ u.nome }}</td><td>{{ u.email }}</td></tr>
+  {% endfor %}
+</table>
+
+<h2>Agendamentos</h2>
+<table border="1">
+  <tr><th>ID</th><th>Usuário</th><th>Tipo</th><th>Local</th><th>Data</th></tr>
+  {% for a in agendamentos %}
+  <tr>
+    <td>{{ a.id }}</td>
+    <td>{{ a.usuario.nome }}</td>
+    <td>{{ a.tipo }}</td>
+    <td>{{ a.local }}</td>
+    <td>{{ a.data }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
