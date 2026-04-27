@@ -1,16 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-import os
+import os, json
 
 app = Flask(__name__)
 
-# Conexão com o banco PostgreSQL do Render
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Modelos
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
@@ -24,14 +22,12 @@ class Agendamento(db.Model):
     local = db.Column(db.String(100), nullable=False)
     usuario_id = db.Column(db.Integer, db.ForeignKey("usuario.id"), nullable=False)
 
-# Lista de ecopontos reais de Limeira
 ECOPOINTS = [
     {"nome": "Ecoponto Anavec", "endereco": "Rua Prof. Otávio Pimenta Reis – Jd. Anavec", "latitude": -22.5695, "longitude": -47.4012},
     {"nome": "Ecoponto Santa Eulália", "endereco": "Av. Dr. Antônio Prince de Oliveira – Jd. Santa Eulália", "latitude": -22.5638, "longitude": -47.4087},
     {"nome": "Ecoponto Lagoa Nova", "endereco": "Av. Dr. Antônio de Luna – Jd. Lagoa Nova", "latitude": -22.5559, "longitude": -47.4143}
 ]
 
-# Rotas
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -69,13 +65,14 @@ def listar_agendamentos():
 
 @app.route("/mapa")
 def mapa():
-    # Passa a lista de ecopontos para o template
-    return render_template("mapa.html", locais=ECOPOINTS)
+    locais_json = json.dumps(ECOPOINTS, ensure_ascii=False)
+    return render_template("mapa.html", locais_json=locais_json)
 
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True)
+
 
 
 

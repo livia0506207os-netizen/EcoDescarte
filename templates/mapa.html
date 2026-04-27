@@ -15,7 +15,7 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
     // ✅ Agora locais vêm como string JSON e são parseados
-    var locais = JSON.parse('{{ locais|tojson|safe }}');
+    var locais = JSON.parse('{{ locais_json|safe }}');
     locais.forEach(function(l) {
         if (l.latitude && l.longitude) {
             L.marker([l.latitude, l.longitude]).addTo(map)
@@ -24,3 +24,4 @@
     });
 </script>
 {% endblock %}
+
