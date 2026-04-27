@@ -40,7 +40,7 @@ def admin_agendamentos():
 def admin_usuarios():
     return render_template("admin_usuarios.html")
 
-# Rotas de edição
+# Rotas de edição dentro da área admin
 @app.route("/admin/editar_agendamento")
 def editar_agendamento():
     return render_template("editar_agendamento.html")
@@ -51,6 +51,8 @@ def editar_usuario():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
 
 
 
