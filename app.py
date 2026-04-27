@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-import os, json
+import os
 
 app = Flask(__name__)
 
@@ -69,13 +69,17 @@ def listar_agendamentos():
 
 @app.route("/mapa")
 def mapa():
-    locais_json = json.dumps(ECOPOINTS)
-    return render_template("mapa.html", locais_json=locais_json)
+    # Passa a lista de ecopontos para o template
+    return render_template("mapa.html", locais=ECOPOINTS)
 
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True)
+
+
+
+
 
 
 
