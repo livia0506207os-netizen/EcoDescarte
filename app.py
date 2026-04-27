@@ -2,6 +2,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+# Páginas principais
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -26,28 +27,31 @@ def saibamais():
 def mapa():
     return render_template("mapa.html")
 
-@app.route("/admin_locais")
+# Área administrativa organizada em subrotas
+@app.route("/admin/locais")
 def admin_locais():
     return render_template("admin_locais.html")
 
-@app.route("/admin_agendamentos")
+@app.route("/admin/agendamentos")
 def admin_agendamentos():
     return render_template("admin_agendamentos.html")
 
-@app.route("/admin_usuarios")
+@app.route("/admin/usuarios")
 def admin_usuarios():
     return render_template("admin_usuarios.html")
 
-@app.route("/editar_agendamento")
+# Rotas de edição
+@app.route("/admin/editar_agendamento")
 def editar_agendamento():
     return render_template("editar_agendamento.html")
 
-@app.route("/editar_usuario")
+@app.route("/admin/editar_usuario")
 def editar_usuario():
     return render_template("editar_usuario.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
