@@ -18,11 +18,7 @@ class Usuario(db.Model):
     nome = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
 
-    agendamentos = db.relationship(
-        "Agendamento",
-        backref="usuario",
-        lazy=True
-    )
+    agendamentos = db.relationship("Agendamento", backref="usuario", lazy=True)
 
 
 class Agendamento(db.Model):
@@ -31,11 +27,7 @@ class Agendamento(db.Model):
     data = db.Column(db.String(20), nullable=False)
     local = db.Column(db.String(100), nullable=False)
 
-    usuario_id = db.Column(
-        db.Integer,
-        db.ForeignKey("usuario.id"),
-        nullable=False
-    )
+    usuario_id = db.Column(db.Integer, db.ForeignKey("usuario.id"), nullable=False)
 
 # ------------------------
 # DADOS FIXOS
@@ -62,7 +54,7 @@ ECOPOINTS = [
 ]
 
 # ------------------------
-# ROTAS PRINCIPAIS
+# ROTAS
 # ------------------------
 @app.route("/")
 def index():
@@ -70,7 +62,6 @@ def index():
 
 @app.route("/mapa")
 def mapa():
-    # Passa os ecopontos para o template
     return render_template("mapa.html", locais=ECOPOINTS)
 
 @app.route("/agendamento")
@@ -89,9 +80,6 @@ def cadastro():
 def saibamais():
     return render_template("saibamais.html")
 
-# ------------------------
-# ROTAS DE USUÁRIO
-# ------------------------
 @app.route("/cadastro_usuario", methods=["GET", "POST"])
 def cadastro_usuario():
     if request.method == "POST":
@@ -106,9 +94,6 @@ def cadastro_usuario():
 
     return render_template("cadastro_usuario.html")
 
-# ------------------------
-# ROTAS DE AGENDAMENTO
-# ------------------------
 @app.route("/agendar_coleta", methods=["GET", "POST"])
 def agendar_coleta():
     usuarios = Usuario.query.all()
@@ -125,32 +110,19 @@ def agendar_coleta():
             data=data,
             local=local
         )
-
         db.session.add(novo_agendamento)
         db.session.commit()
 
         return redirect(url_for("index"))
 
-    return render_template(
-        "agendar_coleta.html",
-        usuarios=usuarios,
-        locais=ECOPOINTS
-    )
+    return render_template("agendar_coleta.html", usuarios=usuarios, locais=ECOPOINTS)
 
 @app.route("/admin/agendamentos")
 def listar_agendamentos():
     usuarios = Usuario.query.all()
     agendamentos = Agendamento.query.all()
+    return render_template("listar_agendamentos.html", usuarios=usuarios, agendamentos=agendamentos)
 
-    return render_template(
-        "listar_agendamentos.html",
-        usuarios=usuarios,
-        agendamentos=agendamentos
-    )
-
-# ------------------------
-# ROTAS ADMIN
-# ------------------------
 @app.route("/admin/usuarios")
 def admin_usuarios():
     usuarios = Usuario.query.all()
