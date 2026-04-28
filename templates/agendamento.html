@@ -35,7 +35,6 @@
 {% block extra_js %}
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-    // locais_json vem pronto do Flask como string JSON
     var locais = JSON.parse('{{ locais_json|safe }}');
 
     var map = L.map('map').setView([-22.566, -47.400], 13);
@@ -49,7 +48,6 @@
             L.marker([l.latitude, l.longitude]).addTo(map)
                 .bindPopup("<strong>" + l.nome + "</strong><br>" + l.endereco)
                 .on('click', function() {
-                    // ao clicar no marcador, seleciona o local no formulário
                     document.querySelector('select[name="local"]').value = l.nome;
                 });
         }

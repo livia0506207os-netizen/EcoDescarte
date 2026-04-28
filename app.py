@@ -60,7 +60,6 @@ def agendamento():
         data = request.form["data"]
         local = request.form["local"]
 
-        # salva usuário e agendamento
         novo_usuario = Usuario(nome=nome, email=email)
         db.session.add(novo_usuario)
         db.session.commit()
