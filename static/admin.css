@@ -1,4 +1,3 @@
-/* Estilo da página Admin Locais */
 .admin-section {
     padding: 20px;
     margin: 20px auto;
@@ -47,6 +46,7 @@
 .admin-section table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
 }
 
 .admin-section th,
@@ -62,5 +62,9 @@
 }
 
 .admin-section tr:nth-child(even) {
-    background: #f2f2f2;
+    background: #f9f9f9;
+}
+
+.admin-section tr:hover {
+    background: #f1f1f1;
 }

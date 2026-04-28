@@ -35,29 +35,14 @@ class Local(db.Model):
     latitude = db.Column(db.String(50))
     longitude = db.Column(db.String(50))
 
-# Rotas principais
+# 🔑 Criação das tabelas
+with app.app_context():
+    db.create_all()
+
+# Rotas
 @app.route("/")
 def index():
     return render_template("index.html")
-
-@app.route("/saibamais")
-def saibamais():
-    return render_template("saibamais.html")
-
-@app.route("/cadastro")
-def cadastro():
-    return render_template("cadastro.html")
-
-@app.route("/cadastro_usuario", methods=["GET", "POST"])
-def cadastro_usuario():
-    if request.method == "POST":
-        nome = request.form["nome"]
-        email = request.form["email"]
-        novo_usuario = Usuario(nome=nome, email=email)
-        db.session.add(novo_usuario)
-        db.session.commit()
-        return redirect(url_for("index"))
-    return render_template("cadastro_usuario.html")
 
 @app.route("/agendamento", methods=["GET", "POST"])
 def agendamento():
@@ -82,12 +67,6 @@ def agendamento():
 
     return render_template("agendamento.html", locais=locais, locais_json=locais_json)
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        return redirect(url_for("index"))
-    return render_template("login.html")
-
 @app.route("/admin/locais", methods=["GET", "POST"])
 def admin_locais():
     if request.method == "POST":
@@ -103,6 +82,4 @@ def admin_locais():
     return render_template("admin_locais.html", locais=locais)
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
