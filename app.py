@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 import os, json
 
 app = Flask(__name__)
+app.secret_key = "segredo-super-seguro"  # chave para sessões
 
 # Configuração do banco
 db_url = os.environ.get("DATABASE_URL")
@@ -20,6 +21,7 @@ class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    senha = db.Column(db.String(100), nullable=False)
 
 class Agendamento(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -35,7 +37,6 @@ class Local(db.Model):
     latitude = db.Column(db.String(50))
     longitude = db.Column(db.String(50))
 
-# 🔑 Criação das tabelas
 with app.app_context():
     db.create_all()
 
@@ -47,6 +48,36 @@ def index():
 @app.route("/saibamais")
 def saibamais():
     return render_template("saibamais.html")
+
+@app.route("/cadastro", methods=["GET", "POST"])
+def cadastro():
+    if request.method == "POST":
+        nome = request.form["nome"]
+        email = request.form["email"]
+        senha = request.form["senha"]
+        novo_usuario = Usuario(nome=nome, email=email, senha=senha)
+        db.session.add(novo_usuario)
+        db.session.commit()
+        return redirect(url_for("login"))
+    return render_template("cadastro.html")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form["email"]
+        senha = request.form["senha"]
+        usuario = Usuario.query.filter_by(email=email, senha=senha).first()
+        if usuario:
+            session["usuario_id"] = usuario.id
+            return redirect(url_for("index"))
+        else:
+            return "Login inválido"
+    return render_template("login.html")
+
+@app.route("/logout")
+def logout():
+    session.pop("usuario_id", None)
+    return redirect(url_for("index"))
 
 @app.route("/agendamento", methods=["GET", "POST"])
 def agendamento():
@@ -82,8 +113,11 @@ def admin_locais():
         db.session.add(novo_local)
         db.session.commit()
         return redirect(url_for("admin_locais"))
+
     locais = Local.query.all()
-    return render_template("admin_locais.html", locais=locais)
+    usuarios = Usuario.query.all()
+    agendamentos = Agendamento.query.all()
+    return render_template("admin_locais.html", locais=locais, usuarios=usuarios, agendamentos=agendamentos)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
