@@ -4,10 +4,15 @@ import os, json
 
 app = Flask(__name__)
 
-# Configuração do banco usando pg8000 (compatível com Python 3.14)
+# ------------------------
+# CONFIGURAÇÃO DO BANCO
+# ------------------------
 db_url = os.environ.get("DATABASE_URL")
+
+# Render fornece a URL como "postgres://..."
+# Precisamos trocar para "postgresql+pg8000://..." para usar o driver pg8000
 if db_url and db_url.startswith("postgres://"):
-    db_url = db_url.replace("postgres://", "postgresql://")
+    db_url = db_url.replace("postgres://", "postgresql+pg8000://")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -55,6 +60,7 @@ def agendamento():
         data = request.form["data"]
         local = request.form["local"]
 
+        # salva usuário e agendamento
         novo_usuario = Usuario(nome=nome, email=email)
         db.session.add(novo_usuario)
         db.session.commit()
@@ -70,12 +76,55 @@ def agendamento():
 
         return redirect(url_for("index"))
 
-    # Passamos locais_json como string JSON
     return render_template(
         "agendamento.html",
         locais=ECOPOINTS,
         locais_json=json.dumps(ECOPOINTS)
     )
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+@app.route("/cadastro")
+def cadastro():
+    return render_template("cadastro.html")
+
+@app.route("/saibamais")
+def saibamais():
+    return render_template("saibamais.html")
+
+@app.route("/cadastro_usuario", methods=["GET", "POST"])
+def cadastro_usuario():
+    if request.method == "POST":
+        nome = request.form["nome"]
+        email = request.form["email"]
+
+        novo_usuario = Usuario(nome=nome, email=email)
+        db.session.add(novo_usuario)
+        db.session.commit()
+
+        return redirect(url_for("index"))
+
+    return render_template("cadastro_usuario.html")
+
+@app.route("/admin/agendamentos")
+def listar_agendamentos():
+    usuarios = Usuario.query.all()
+    agendamentos = Agendamento.query.all()
+    return render_template("listar_agendamentos.html", usuarios=usuarios, agendamentos=agendamentos)
+
+@app.route("/admin/usuarios")
+def admin_usuarios():
+    usuarios = Usuario.query.all()
+    return render_template("admin_usuarios.html", usuarios=usuarios)
+
+@app.route("/admin/locais")
+def admin_locais():
+    return render_template("admin_locais.html", locais=ECOPOINTS)
+
+# ------------------------
+# MAIN
+# ------------------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
