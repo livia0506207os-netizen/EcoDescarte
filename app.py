@@ -7,7 +7,7 @@ app = Flask(__name__)
 # Configuração do banco usando pg8000 (compatível com Python 3.14)
 db_url = os.environ.get("DATABASE_URL")
 if db_url and db_url.startswith("postgres://"):
-    db_url = db_url.replace("postgres://", "postgresql+pg8000://")
+    db_url = db_url.replace("postgres://", "postgresql://")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
