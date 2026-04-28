@@ -35,14 +35,18 @@
 {% block extra_js %}
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
+    // Recebe os locais do backend
     var locais = JSON.parse('{{ locais_json|safe }}');
 
+    // Inicializa o mapa em Limeira/SP
     var map = L.map('map').setView([-22.566, -47.400], 13);
 
+    // Camada de tiles do OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
+    // Adiciona marcadores para cada local
     locais.forEach(function(l) {
         if (l.latitude && l.longitude) {
             L.marker([l.latitude, l.longitude]).addTo(map)
@@ -57,6 +61,8 @@
     var bounds = locais.map(function(l) {
         return [l.latitude, l.longitude];
     });
-    map.fitBounds(bounds);
+    if (bounds.length > 0) {
+        map.fitBounds(bounds);
+    }
 </script>
 {% endblock %}

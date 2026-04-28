@@ -92,6 +92,24 @@ def agendamento():
 def saibamais():
     return render_template("saibamais.html")
 
+@app.route("/cadastro")
+def cadastro():
+    return render_template("cadastro.html")
+
+@app.route("/cadastro_usuario", methods=["GET", "POST"])
+def cadastro_usuario():
+    if request.method == "POST":
+        nome = request.form["nome"]
+        email = request.form["email"]
+
+        novo_usuario = Usuario(nome=nome, email=email)
+        db.session.add(novo_usuario)
+        db.session.commit()
+
+        return redirect(url_for("index"))
+
+    return render_template("cadastro_usuario.html")
+
 # ------------------------
 # ADMIN - USUÁRIOS
 # ------------------------
