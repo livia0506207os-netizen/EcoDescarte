@@ -3,45 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
-    <!-- CSS global -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <header>
-        <div class="logo-title">
-            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
-            <div class="title-text">
-                <h1>EcoDescarte</h1>
-                <p>Descarte consciente de eletrônicos</p>
-            </div>
-        </div>
-        <nav>
-            <a href="/">Início</a>
-            <a href="/cadastro">Cadastro</a>
-            <a href="/agendamento">Agendamento</a>
-            <a href="/login">Login</a>
-            <a href="/saibamais">Saiba Mais</a>
-            <a href="/admin/locais">Admin Locais</a>
-        </nav>
-    </header>
-
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-
-    <footer>
-        <p>EcoDescarte © 2026 - Limeira/SP</p>
-    </footer>
-
+    <nav>
+        <a href="{{ url_for('index') }}">Início</a>
+        <a href="{{ url_for('saibamais') }}">Saiba Mais</a>
+        <a href="{{ url_for('cadastro') }}">Cadastro</a>
+        <a href="{{ url_for('agendamento') }}">Agendamento</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('admin_locais') }}">Admin Locais</a>
+    </nav>
+    {% block content %}{% endblock %}
     {% block extra_js %}{% endblock %}
 </body>
 </html>
-
-
-
-
-
-
-
-

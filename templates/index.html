@@ -2,14 +2,12 @@
 {% block title %}EcoDescarte{% endblock %}
 {% block content %}
 <div class="hero">
-    <div class="hero-text">
-        <h2>Encontre locais para descartar seu lixo eletrônico</h2>
-        <p>Descarte de forma correta e ajude o meio ambiente.</p>
-        <div class="buttons">
-            <a href="{{ url_for('agendamento') }}" class="btn">Pontos de coleta</a>
-            <a href="{{ url_for('saibamais') }}" class="btn">Saiba mais</a>
-            <a href="{{ url_for('cadastro') }}" class="btn">Cadastro</a>
-        </div>
+    <h2>Encontre locais para descartar seu lixo eletrônico</h2>
+    <p>Descarte de forma correta e ajude o meio ambiente.</p>
+    <div class="buttons">
+        <a href="{{ url_for('agendamento') }}" class="btn">Pontos de coleta</a>
+        <a href="{{ url_for('saibamais') }}" class="btn">Saiba mais</a>
+        <a href="{{ url_for('cadastro') }}" class="btn">Cadastro</a>
     </div>
 </div>
 {% endblock %}
