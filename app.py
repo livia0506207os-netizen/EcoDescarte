@@ -44,6 +44,10 @@ with app.app_context():
 def index():
     return render_template("index.html")
 
+@app.route("/saibamais")
+def saibamais():
+    return render_template("saibamais.html")
+
 @app.route("/agendamento", methods=["GET", "POST"])
 def agendamento():
     locais = Local.query.all()
