@@ -1,32 +1,142 @@
+/* Seção principal de administração */
 .admin-section {
     padding: 30px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin: 20px;
 }
 
+/* Títulos */
 .admin-section h2 {
     color: #2e7d32;
     margin-bottom: 20px;
+    font-size: 1.8em;
+    border-bottom: 2px solid #2e7d32;
+    padding-bottom: 10px;
 }
 
+/* Formulários */
+.admin-section form {
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.admin-section form input,
+.admin-section form button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    flex: 1;
+    min-width: 200px;
+}
+
+.admin-section form button {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.admin-section form button:hover {
+    background: #1b5e20;
+}
+
+/* Tabelas */
 table {
     width: 100%;
     border-collapse: collapse;
     background: white;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-top: 20px;
 }
 
 table th, table td {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 12px;
     text-align: left;
 }
 
 table th {
     background: #2e7d32;
     color: white;
+    font-weight: bold;
 }
 
+table tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+/* Links de ação */
 table a {
     color: #2e7d32;
     text-decoration: none;
     font-weight: bold;
+    margin: 0 5px;
+}
+
+table a:hover {
+    text-decoration: underline;
+}
+
+/* Botões de ação fora de tabelas */
+.action-buttons {
+    margin-top: 20px;
+}
+
+.action-buttons a,
+.action-buttons button {
+    display: inline-block;
+    padding: 8px 15px;
+    margin-right: 10px;
+    border-radius: 5px;
+    background: #2e7d32;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.action-buttons a:hover,
+.action-buttons button:hover {
+    background: #1b5e20;
+}
+
+/* Formulários de edição */
+.form-section {
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    margin: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.form-section h2 {
+    color: #2e7d32;
+    margin-bottom: 20px;
+}
+
+.form-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-section form input,
+.form-section form button {
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form-section form button {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.form-section form button:hover {
+    background: #1b5e20;
 }

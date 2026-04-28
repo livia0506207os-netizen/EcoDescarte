@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Editar Usuário{% endblock %}
 {% block content %}
-<div class="form-container">
+<section class="form-section">
     <h2>Editar Usuário</h2>
     <form method="POST">
         <input type="text" name="nome" value="{{ usuario.nome }}" required>
         <input type="email" name="email" value="{{ usuario.email }}" required>
-        <input type="text" name="senha" value="{{ usuario.senha }}" required>
         <button type="submit">Salvar</button>
     </form>
-</div>
+</section>
 {% endblock %}

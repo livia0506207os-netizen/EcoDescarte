@@ -10,11 +10,8 @@ app = Flask(__name__)
 db_url = os.environ.get("DATABASE_URL")
 
 if db_url and db_url.startswith("postgres://"):
-    # Render fornece a URL como "postgres://..."
-    # Precisamos trocar para "postgresql+pg8000://..." para usar o driver pg8000
     db_url = db_url.replace("postgres://", "postgresql+pg8000://")
 else:
-    # Fallback para rodar localmente com SQLite
     db_url = "sqlite:///local.db"
 
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url
@@ -39,17 +36,16 @@ class Agendamento(db.Model):
     local = db.Column(db.String(100), nullable=False)
     usuario_id = db.Column(db.Integer, db.ForeignKey("usuario.id"), nullable=False)
 
-# ------------------------
-# DADOS FIXOS
-# ------------------------
-ECOPOINTS = [
-    {"nome": "Ecoponto Anavec", "endereco": "Rua Prof. Otávio Pimenta Reis – Jd. Anavec", "latitude": -22.5695, "longitude": -47.4012},
-    {"nome": "Ecoponto Santa Eulália", "endereco": "Av. Dr. Antônio Prince de Oliveira – Jd. Santa Eulália", "latitude": -22.5638, "longitude": -47.4087},
-    {"nome": "Ecoponto Lagoa Nova", "endereco": "Av. Dr. Antônio de Luna – Jd. Lagoa Nova", "latitude": -22.5559, "longitude": -47.4143}
-]
+
+class Local(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+    endereco = db.Column(db.String(200), nullable=False)
+    latitude = db.Column(db.String(50))
+    longitude = db.Column(db.String(50))
 
 # ------------------------
-# ROTAS
+# ROTAS PÚBLICAS
 # ------------------------
 @app.route("/")
 def index():
@@ -57,18 +53,21 @@ def index():
 
 @app.route("/agendamento", methods=["GET", "POST"])
 def agendamento():
+    locais = Local.query.all()
     if request.method == "POST":
         nome = request.form["nome"]
         email = request.form["email"]
         data = request.form["data"]
         local = request.form["local"]
 
-        novo_usuario = Usuario(nome=nome, email=email)
-        db.session.add(novo_usuario)
-        db.session.commit()
+        usuario = Usuario.query.filter_by(email=email).first()
+        if not usuario:
+            usuario = Usuario(nome=nome, email=email)
+            db.session.add(usuario)
+            db.session.commit()
 
         novo_agendamento = Agendamento(
-            usuario_id=novo_usuario.id,
+            usuario_id=usuario.id,
             tipo="Eletrônicos",
             data=data,
             local=local
@@ -80,53 +79,94 @@ def agendamento():
 
     return render_template(
         "agendamento.html",
-        locais=ECOPOINTS,
-        locais_json=json.dumps(ECOPOINTS)
+        locais=locais,
+        locais_json=json.dumps([{
+            "nome": l.nome,
+            "endereco": l.endereco,
+            "latitude": l.latitude,
+            "longitude": l.longitude
+        } for l in locais])
     )
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
-
-@app.route("/cadastro")
-def cadastro():
-    return render_template("cadastro.html")
-
-@app.route("/saibamais")
-def saibamais():
-    return render_template("saibamais.html")
-
-@app.route("/cadastro_usuario", methods=["GET", "POST"])
-def cadastro_usuario():
-    if request.method == "POST":
-        nome = request.form["nome"]
-        email = request.form["email"]
-
-        novo_usuario = Usuario(nome=nome, email=email)
-        db.session.add(novo_usuario)
-        db.session.commit()
-
-        return redirect(url_for("index"))
-
-    return render_template("cadastro_usuario.html")
-
-@app.route("/admin/agendamentos")
-def listar_agendamentos():
-    usuarios = Usuario.query.all()
-    agendamentos = Agendamento.query.all()
-    return render_template("listar_agendamentos.html", usuarios=usuarios, agendamentos=agendamentos)
-
+# ------------------------
+# ADMIN - USUÁRIOS
+# ------------------------
 @app.route("/admin/usuarios")
 def admin_usuarios():
     usuarios = Usuario.query.all()
     return render_template("admin_usuarios.html", usuarios=usuarios)
 
-@app.route("/admin/locais")
+@app.route("/admin/usuarios/editar/<int:id>", methods=["GET", "POST"])
+def editar_usuario(id):
+    usuario = Usuario.query.get_or_404(id)
+    if request.method == "POST":
+        usuario.nome = request.form["nome"]
+        usuario.email = request.form["email"]
+        db.session.commit()
+        return redirect(url_for("admin_usuarios"))
+    return render_template("editar_usuario.html", usuario=usuario)
+
+@app.route("/admin/usuarios/deletar/<int:id>")
+def deletar_usuario(id):
+    usuario = Usuario.query.get_or_404(id)
+    db.session.delete(usuario)
+    db.session.commit()
+    return redirect(url_for("admin_usuarios"))
+
+# ------------------------
+# ADMIN - AGENDAMENTOS
+# ------------------------
+@app.route("/admin/agendamentos")
+def admin_agendamentos():
+    agendamentos = Agendamento.query.all()
+    return render_template("admin_agendamentos.html", agendamentos=agendamentos)
+
+@app.route("/admin/agendamentos/editar/<int:id>", methods=["GET", "POST"])
+def editar_agendamento(id):
+    agendamento = Agendamento.query.get_or_404(id)
+    if request.method == "POST":
+        agendamento.data = request.form["data"]
+        agendamento.local = request.form["local"]
+        db.session.commit()
+        return redirect(url_for("admin_agendamentos"))
+    return render_template("editar_agendamento.html", agendamento=agendamento)
+
+@app.route("/admin/agendamentos/deletar/<int:id>")
+def deletar_agendamento(id):
+    agendamento = Agendamento.query.get_or_404(id)
+    db.session.delete(agendamento)
+    db.session.commit()
+    return redirect(url_for("admin_agendamentos"))
+
+@app.route("/listar_agendamentos")
+def listar_agendamentos():
+    agendamentos = Agendamento.query.all()
+    return render_template("listar_agendamentos.html", agendamentos=agendamentos)
+
+# ------------------------
+# ADMIN - LOCAIS
+# ------------------------
+@app.route("/admin/locais", methods=["GET", "POST"])
 def admin_locais():
-    return render_template("admin_locais.html", locais=ECOPOINTS)
+    if request.method == "POST":
+        nome = request.form["nome"]
+        endereco = request.form["endereco"]
+        latitude = request.form["latitude"]
+        longitude = request.form["longitude"]
+
+        novo_local = Local(nome=nome, endereco=endereco, latitude=latitude, longitude=longitude)
+        db.session.add(novo_local)
+        db.session.commit()
+
+        return redirect(url_for("admin_locais"))
+
+    locais = Local.query.all()
+    return render_template("admin_locais.html", locais=locais)
 
 # ------------------------
 # MAIN
 # ------------------------
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Editar Agendamento{% endblock %}
 {% block content %}
-<div class="form-container">
+<section class="form-section">
     <h2>Editar Agendamento</h2>
     <form method="POST">
-        <input type="text" name="nome" value="{{ agendamento.nome }}" required>
-        <input type="email" name="email" value="{{ agendamento.email }}" required>
-        <input type="text" name="data" value="{{ agendamento.data }}" required>
+        <input type="date" name="data" value="{{ agendamento.data }}" required>
+        <input type="text" name="local" value="{{ agendamento.local }}" required>
         <button type="submit">Salvar</button>
     </form>
-</div>
+</section>
 {% endblock %}
