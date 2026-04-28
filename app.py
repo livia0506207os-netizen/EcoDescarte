@@ -70,6 +70,7 @@ def agendamento():
 
         return redirect(url_for("index"))
 
+    # Passamos locais_json como string JSON
     return render_template(
         "agendamento.html",
         locais=ECOPOINTS,
