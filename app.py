@@ -88,6 +88,10 @@ def agendamento():
         } for l in locais])
     )
 
+@app.route("/saibamais")
+def saibamais():
+    return render_template("saibamais.html")
+
 # ------------------------
 # ADMIN - USUÁRIOS
 # ------------------------
