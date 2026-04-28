@@ -35,7 +35,7 @@ class Local(db.Model):
     latitude = db.Column(db.String(50))
     longitude = db.Column(db.String(50))
 
-# Rotas
+# Rotas principais
 @app.route("/")
 def index():
     return render_template("index.html")

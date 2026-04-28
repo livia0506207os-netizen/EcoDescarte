@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Admin - Locais{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+{% endblock %}
+
 {% block content %}
-<section>
+<section class="admin-section">
     <h2>Gerenciar Locais de Coleta</h2>
     <form method="POST">
         <input type="text" name="nome" placeholder="Nome do local" required>
