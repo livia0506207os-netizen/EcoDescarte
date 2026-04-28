@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-import os
+import os, json
 
 app = Flask(__name__)
 
-# Configuração do banco usando pg8000
+# Configuração do banco usando pg8000 (compatível com Python 3.14)
 db_url = os.environ.get("DATABASE_URL")
 if db_url and db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql+pg8000://")
@@ -47,8 +47,33 @@ ECOPOINTS = [
 def index():
     return render_template("index.html")
 
-@app.route("/mapa")
-def mapa():
-    return render_template("mapa.html", locais=ECOPOINTS)
+@app.route("/agendamento", methods=["GET", "POST"])
+def agendamento():
+    if request.method == "POST":
+        nome = request.form["nome"]
+        email = request.form["email"]
+        data = request.form["data"]
+        local = request.form["local"]
+
+        novo_usuario = Usuario(nome=nome, email=email)
+        db.session.add(novo_usuario)
+        db.session.commit()
+
+        novo_agendamento = Agendamento(
+            usuario_id=novo_usuario.id,
+            tipo="Eletrônicos",
+            data=data,
+            local=local
+        )
+        db.session.add(novo_agendamento)
+        db.session.commit()
+
+        return redirect(url_for("index"))
+
+    return render_template(
+        "agendamento.html",
+        locais=ECOPOINTS,
+        locais_json=json.dumps(ECOPOINTS)
+    )
 
 # demais rotas iguais...

@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Agendamento de Descarte{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='agendamentos.css') }}">
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 {% endblock %}
+
 {% block content %}
 <section class="form-section">
     <div class="form-container">
@@ -16,7 +18,7 @@
             <select name="local" required>
                 <option value="">Selecione o local</option>
                 {% for l in locais %}
-                    <option value="{{ l.id }}">{{ l.nome }} - {{ l.endereco }}</option>
+                    <option value="{{ l.nome }}">{{ l.nome }} - {{ l.endereco }}</option>
                 {% endfor %}
             </select>
             <button type="submit">Agendar</button>
@@ -29,35 +31,28 @@
     <div id="map"></div>
 </section>
 {% endblock %}
+
 {% block extra_js %}
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-    var map = L.map('map').setView([-22.566, -47.400], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    // locais_json vem pronto do Flask como string JSON
     var locais = JSON.parse('{{ locais_json|safe }}');
+
+    var map = L.map('map').setView([-22.566, -47.400], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
     locais.forEach(function(l) {
         if (l.latitude && l.longitude) {
             L.marker([l.latitude, l.longitude]).addTo(map)
-                .bindPopup("<strong>" + l.nome + "</strong><br>" + l.endereco);
+                .bindPopup("<strong>" + l.nome + "</strong><br>" + l.endereco)
+                .on('click', function() {
+                    // ao clicar no marcador, seleciona o local no formulário
+                    document.querySelector('select[name="local"]').value = l.nome;
+                });
         }
     });
 </script>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
