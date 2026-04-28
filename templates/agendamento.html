@@ -52,5 +52,11 @@
                 });
         }
     });
+
+    // Ajusta o zoom para mostrar todos os pontos
+    var bounds = locais.map(function(l) {
+        return [l.latitude, l.longitude];
+    });
+    map.fitBounds(bounds);
 </script>
 {% endblock %}

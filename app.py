@@ -9,10 +9,13 @@ app = Flask(__name__)
 # ------------------------
 db_url = os.environ.get("DATABASE_URL")
 
-# Render fornece a URL como "postgres://..."
-# Precisamos trocar para "postgresql+pg8000://..." para usar o driver pg8000
 if db_url and db_url.startswith("postgres://"):
+    # Render fornece a URL como "postgres://..."
+    # Precisamos trocar para "postgresql+pg8000://..." para usar o driver pg8000
     db_url = db_url.replace("postgres://", "postgresql+pg8000://")
+else:
+    # Fallback para rodar localmente com SQLite
+    db_url = "sqlite:///local.db"
 
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
