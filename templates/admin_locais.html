@@ -2,10 +2,9 @@
 {% block title %}Admin - Locais{% endblock %}
 
 {% block content %}
-<section class="admin-section">
+<section>
     <h2>Gerenciar Locais de Coleta</h2>
-
-    <form method="POST" class="form-container">
+    <form method="POST">
         <input type="text" name="nome" placeholder="Nome do local" required>
         <input type="text" name="endereco" placeholder="Endereço" required>
         <input type="text" name="latitude" placeholder="Latitude" required>
@@ -17,11 +16,7 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Endereço</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
+                <th>ID</th><th>Nome</th><th>Endereço</th><th>Latitude</th><th>Longitude</th>
             </tr>
         </thead>
         <tbody>

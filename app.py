@@ -20,14 +20,13 @@ class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    agendamentos = db.relationship("Agendamento", backref="usuario", lazy=True)
 
 class Agendamento(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    tipo = db.Column(db.String(50), nullable=False)
+    nome = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
     data = db.Column(db.String(20), nullable=False)
     local = db.Column(db.String(100), nullable=False)
-    usuario_id = db.Column(db.Integer, db.ForeignKey("usuario.id"), nullable=False)
 
 class Local(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -36,7 +35,7 @@ class Local(db.Model):
     latitude = db.Column(db.String(50))
     longitude = db.Column(db.String(50))
 
-# Rotas públicas
+# Rotas
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -69,42 +68,26 @@ def agendamento():
         data = request.form["data"]
         local = request.form["local"]
 
-        usuario = Usuario.query.filter_by(email=email).first()
-        if not usuario:
-            usuario = Usuario(nome=nome, email=email)
-            db.session.add(usuario)
-            db.session.commit()
-
-        novo_agendamento = Agendamento(
-            usuario_id=usuario.id,
-            tipo="Eletrônicos",
-            data=data,
-            local=local
-        )
+        novo_agendamento = Agendamento(nome=nome, email=email, data=data, local=local)
         db.session.add(novo_agendamento)
         db.session.commit()
         return redirect(url_for("index"))
 
-    return render_template("agendamento.html",
-        locais=locais,
-        locais_json=json.dumps([{
-            "nome": l.nome,
-            "endereco": l.endereco,
-            "latitude": l.latitude,
-            "longitude": l.longitude
-        } for l in locais])
-    )
+    locais_json = json.dumps([{
+        "nome": l.nome,
+        "endereco": l.endereco,
+        "latitude": l.latitude,
+        "longitude": l.longitude
+    } for l in locais]) if locais else "[]"
+
+    return render_template("agendamento.html", locais=locais, locais_json=locais_json)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        email = request.form["email"]
-        senha = request.form["senha"]
-        # Aqui você faria a validação
         return redirect(url_for("index"))
     return render_template("login.html")
 
-# Admin locais
 @app.route("/admin/locais", methods=["GET", "POST"])
 def admin_locais():
     if request.method == "POST":
