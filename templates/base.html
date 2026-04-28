@@ -2,20 +2,22 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}EcoDescarte{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <nav>
-        <a href="{{ url_for('index') }}">Início</a>
-        <a href="{{ url_for('saibamais') }}">Saiba Mais</a>
-        <a href="{{ url_for('cadastro') }}">Cadastro</a>
-        <a href="{{ url_for('agendamento') }}">Agendamento</a>
-        <a href="{{ url_for('login') }}">Login</a>
-        <a href="{{ url_for('admin_locais') }}">Admin Locais</a>
-    </nav>
-    {% block content %}{% endblock %}
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}">Início</a>
+            <a href="{{ url_for('agendamento') }}">Agendamento</a>
+            <a href="{{ url_for('admin_locais') }}">Admin Locais</a>
+            <a href="{{ url_for('saibamais') }}">Saiba Mais</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
