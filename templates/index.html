@@ -1,13 +1,20 @@
 {% extends "base.html" %}
 {% block title %}EcoDescarte{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
 {% block content %}
 <div class="hero">
-    <h2>Encontre locais para descartar seu lixo eletrônico</h2>
-    <p>Descarte de forma correta e ajude o meio ambiente.</p>
-    <div class="buttons">
-        <a href="{{ url_for('agendamento') }}" class="btn">Pontos de coleta</a>
-        <a href="{{ url_for('saibamais') }}" class="btn">Saiba mais</a>
-        <a href="{{ url_for('cadastro') }}" class="btn">Cadastro</a>
+    <div class="hero-text">
+        <h2>Encontre locais para descartar seu lixo eletrônico</h2>
+        <p>Descarte de forma correta</p>
+        <div class="buttons">
+            <a href="{{ url_for('agendamento') }}" class="btn">Pontos de coleta</a>
+            <a href="{{ url_for('saibamais') }}" class="btn">Saiba mais</a>
+        </div>
+    </div>
+    <div class="hero-image">
+        <img src="{{ url_for('static', filename='banner.png') }}" alt="Lixo eletrônico em lixeira">
     </div>
 </div>
 {% endblock %}

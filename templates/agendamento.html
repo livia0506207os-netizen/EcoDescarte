@@ -58,9 +58,10 @@
     });
 
     // Ajusta o zoom para mostrar todos os pontos
-    var bounds = locais.map(function(l) {
-        return [l.latitude, l.longitude];
-    });
+    var bounds = locais
+        .filter(function(l) { return l.latitude && l.longitude; })
+        .map(function(l) { return [l.latitude, l.longitude]; });
+
     if (bounds.length > 0) {
         map.fitBounds(bounds);
     }
