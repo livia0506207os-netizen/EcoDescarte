@@ -6,16 +6,17 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th><th>Nome</th><th>Email</th><th>Data</th><th>Ações</th>
+                <th>ID</th><th>Nome</th><th>Email</th><th>Data</th><th>Local</th><th>Ações</th>
             </tr>
         </thead>
         <tbody>
             {% for a in agendamentos %}
             <tr>
                 <td>{{ a.id }}</td>
-                <td>{{ a.nome }}</td>
-                <td>{{ a.email }}</td>
+                <td>{{ a.usuario.nome }}</td>
+                <td>{{ a.usuario.email }}</td>
                 <td>{{ a.data }}</td>
+                <td>{{ a.local }}</td>
                 <td>
                     <a href="{{ url_for('editar_agendamento', id=a.id) }}">Editar</a> |
                     <a href="{{ url_for('deletar_agendamento', id=a.id) }}">Excluir</a>

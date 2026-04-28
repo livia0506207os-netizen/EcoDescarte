@@ -6,15 +6,10 @@
         <h2>Encontre locais para descartar seu lixo eletrônico</h2>
         <p>Descarte de forma correta e ajude o meio ambiente.</p>
         <div class="buttons">
-            <a href="/agendamento" class="btn">Pontos de coleta</a>
-            <a href="/saibamais" class="btn">Saiba mais</a>
+            <!-- Usa url_for para garantir que a rota funcione -->
+            <a href="{{ url_for('agendamento') }}" class="btn">Pontos de coleta</a>
+            <a href="{{ url_for('saibamais') }}" class="btn">Saiba mais</a>
         </div>
     </div>
 </div>
 {% endblock %}
-
-
-
-
-
-
