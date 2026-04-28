@@ -10,7 +10,6 @@
 <section class="form-section">
     <div class="form-container">
         <h2>Agendamento de Descarte</h2>
-        <p class="descricao">Preencha os dados abaixo para agendar o descarte consciente dos seus eletrônicos.</p>
         <form method="POST">
             <input type="text" name="nome" placeholder="Nome completo" required>
             <input type="email" name="email" placeholder="Email" required>
@@ -27,7 +26,7 @@
 </section>
 
 <section class="map-section">
-    <h3>Veja os pontos de coleta disponíveis</h3>
+    <h3>Pontos de coleta disponíveis</h3>
     <div id="map"></div>
 </section>
 {% endblock %}
@@ -35,18 +34,14 @@
 {% block extra_js %}
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-    // Recebe os locais do backend
     var locais = JSON.parse('{{ locais_json|safe }}');
 
-    // Inicializa o mapa em Limeira/SP
     var map = L.map('map').setView([-22.566, -47.400], 13);
 
-    // Camada de tiles do OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Adiciona marcadores para cada local
     locais.forEach(function(l) {
         if (l.latitude && l.longitude) {
             L.marker([l.latitude, l.longitude]).addTo(map)
@@ -57,7 +52,6 @@
         }
     });
 
-    // Ajusta o zoom para mostrar todos os pontos
     var bounds = locais
         .filter(function(l) { return l.latitude && l.longitude; })
         .map(function(l) { return [l.latitude, l.longitude]; });
