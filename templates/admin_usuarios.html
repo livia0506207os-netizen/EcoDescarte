@@ -6,7 +6,7 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th><th>Nome</th><th>Email</th><th>Ações</th>
+                <th>ID</th><th>Nome</th><th>Email</th>
             </tr>
         </thead>
         <tbody>
@@ -15,10 +15,6 @@
                 <td>{{ u.id }}</td>
                 <td>{{ u.nome }}</td>
                 <td>{{ u.email }}</td>
-                <td>
-                    <a href="{{ url_for('editar_usuario', id=u.id) }}">Editar</a> |
-                    <a href="{{ url_for('deletar_usuario', id=u.id) }}">Excluir</a>
-                </td>
             </tr>
             {% endfor %}
         </tbody>

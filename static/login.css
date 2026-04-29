@@ -1,51 +1,34 @@
-/* Seção de login */
 .login-section {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
-    background: #f5f5f5; /* fundo uniforme */
+    height: 100vh;
+    background: url("folhas.jpg") no-repeat center center fixed;
+    background-size: cover;
 }
 
-/* Caixa de login */
 .login-container {
-    background: #ffffff;
+    background: rgba(255,255,255,0.9);
     padding: 40px;
     border-radius: 12px;
     text-align: center;
     width: 350px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.login-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-/* Título */
 .login-container h2 {
     margin-bottom: 20px;
     color: #2e7d32;
 }
 
-/* Campos */
 .login-container input {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background: #f9f9f9;
-    font-size: 0.95em;
 }
 
-.login-container input:focus {
-    border-color: #2e7d32;
-    outline: none;
-}
-
-/* Botão */
 .btn-login {
     width: 100%;
     padding: 12px;
@@ -55,33 +38,4 @@
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
-    transition: background 0.3s, transform 0.2s;
 }
-
-.btn-login:hover {
-    background: #1b5e20;
-    transform: scale(1.02);
-}
-
-/* Links */
-.links {
-    margin: 15px 0;
-}
-
-.links a {
-    margin: 0 10px;
-    color: #2e7d32;
-    text-decoration: none;
-    font-size: 0.9em;
-}
-
-/* Social login */
-.social-login img {
-    width: 40px;
-    margin: 10px;
-    cursor: pointer;
-}
-
-
-

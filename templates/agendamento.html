@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Agendamento{% endblock %}
-
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='agendamentos.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 {% endblock %}
-
 {% block content %}
 <section class="form-section">
     <h2>Agendamento de Descarte</h2>
@@ -28,7 +26,6 @@
     <div id="map"></div>
 </section>
 {% endblock %}
-
 {% block extra_js %}
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>

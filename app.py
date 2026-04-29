@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os, json
 
 app = Flask(__name__)
-app.secret_key = "segredo-super-seguro"  # chave para sessões
+app.secret_key = "segredo-super-seguro"
 
 # Configuração do banco
 db_url = os.environ.get("DATABASE_URL")
@@ -34,8 +34,8 @@ class Local(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
     endereco = db.Column(db.String(200), nullable=False)
-    latitude = db.Column(db.String(50))
-    longitude = db.Column(db.String(50))
+    latitude = db.Column(db.String(50), nullable=True)
+    longitude = db.Column(db.String(50), nullable=True)
 
 with app.app_context():
     db.create_all()
@@ -107,8 +107,8 @@ def admin_locais():
     if request.method == "POST":
         nome = request.form["nome"]
         endereco = request.form["endereco"]
-        latitude = request.form["latitude"]
-        longitude = request.form["longitude"]
+        latitude = request.form.get("latitude")
+        longitude = request.form.get("longitude")
         novo_local = Local(nome=nome, endereco=endereco, latitude=latitude, longitude=longitude)
         db.session.add(novo_local)
         db.session.commit()
@@ -120,4 +120,5 @@ def admin_locais():
     return render_template("admin_locais.html", locais=locais, usuarios=usuarios, agendamentos=agendamentos)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
