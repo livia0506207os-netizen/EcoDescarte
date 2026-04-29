@@ -5,8 +5,7 @@ import os
 
 app = Flask(__name__)
 
-# Render fornece a URL do banco em uma variável de ambiente DATABASE_URL
-# Exemplo: postgres://user:senha@host:5432/dbname
+# Configuração do banco (Render fornece DATABASE_URL)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "segredo_local")
 db = SQLAlchemy(app)
