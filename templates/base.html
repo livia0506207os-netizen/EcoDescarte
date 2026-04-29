@@ -3,38 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>EcoDescarte</title>
+    <!-- Fonte Google para uniformizar o site -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
     {% block head %}{% endblock %}
     <style>
-        /* Ajuste da barra de navegação para ficar mais harmoniosa */
+        /* Fonte padrão para todo o site */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Barra de navegação */
         nav {
             background-color: #2c3e50;
-            padding: 10px 20px;
+            padding: 12px 24px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+
+        nav .nav-left {
+            display: flex;
+            gap: 20px;
+        }
+
         nav .nav-left a {
             color: #ecf0f1;
             text-decoration: none;
-            margin: 0 12px;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.3s, transform 0.2s;
         }
+
         nav .nav-left a:hover {
             color: #1abc9c;
+            transform: scale(1.05);
         }
+
+        nav .nav-right {
+            margin-left: auto;
+        }
+
         nav .nav-right a {
             background-color: #1abc9c;
             color: #fff;
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 4px;
             text-decoration: none;
             font-weight: 600;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
         }
+
         nav .nav-right a:hover {
             background-color: #16a085;
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -50,7 +76,6 @@
             <a href="{{ url_for('admin_agendamentos') }}">Admin Agendamentos</a>
         </div>
         <div class="nav-right">
-            <!-- Botão de login destacado -->
             <a href="{{ url_for('login') }}" class="login-btn">Entrar</a>
         </div>
     </nav>
