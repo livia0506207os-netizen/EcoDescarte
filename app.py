@@ -1,10 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///eco.db'
-app.config['SECRET_KEY'] = 'segredo'
+
+# Render fornece a URL do banco em uma variável de ambiente DATABASE_URL
+# Exemplo: postgres://user:senha@host:5432/dbname
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "segredo_local")
 db = SQLAlchemy(app)
 
 # ------------------------
@@ -44,9 +48,7 @@ def cadastro():
         email = request.form["email"]
         senha = request.form["senha"]
 
-        # Criptografa senha
         senha_hash = generate_password_hash(senha)
-
         novo_usuario = Usuario(nome=nome, email=email, senha=senha_hash)
         db.session.add(novo_usuario)
         db.session.commit()
