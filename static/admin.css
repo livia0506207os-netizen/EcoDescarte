@@ -1,6 +1,5 @@
 body {
-    background-color: #f9f9f9;
-    font-family: Arial, sans-serif;
+    background-color: #f4f6f5;
 }
 
 h1 {
@@ -13,13 +12,13 @@ ul {
     list-style: none;
     padding: 0;
     margin: 20px auto;
-    width: 60%;
+    width: 70%;
 }
 
 ul li {
-    background: white;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #ccc;
+    background: #fff;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }

@@ -1,15 +1,14 @@
 body {
-    background-color: #eafaf1;
-    font-family: Arial, sans-serif;
+    background-color: #f4f6f5;
 }
 
 .cadastro-container {
-    background: white;
-    padding: 30px;
-    margin: 50px auto;
-    width: 350px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
+    background: #fff;
+    padding: 35px;
+    margin: 80px auto;
+    width: 380px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     text-align: center;
 }
 
@@ -20,20 +19,22 @@ body {
 
 .cadastro-container input {
     width: 90%;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 12px;
+    margin: 12px 0;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 
 .cadastro-container button {
     width: 95%;
-    padding: 10px;
+    padding: 12px;
     background-color: #27ae60;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
 }
 
 .cadastro-container button:hover {

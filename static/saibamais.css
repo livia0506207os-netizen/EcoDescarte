@@ -1,31 +1,30 @@
 .saiba-container {
-    background-image: url("../static/saibamais.png");
-    background-repeat: no-repeat;
-    background-position: right center;
-    background-size: 300px auto;
-    background-color: white;
+    background: url("../static/saibamais.png") no-repeat right center;
+    background-size: 280px auto;
+    background-color: #fff;
     padding: 40px;
-    margin: 50px auto;
-    width: 800px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
+    margin: 60px auto;
+    width: 850px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
 }
 
 .saiba-text {
-    max-width: 450px;
+    max-width: 500px;
 }
 
 .saiba-container h1 {
     color: #2c3e50;
     margin-bottom: 20px;
+    font-size: 2em;
 }
 
 .saiba-container p {
     margin-bottom: 15px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .saiba-container ul {
