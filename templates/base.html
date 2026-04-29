@@ -8,24 +8,30 @@
 </head>
 <body>
     <nav>
-        <a href="{{ url_for('index') }}">Início</a>
-        <a href="{{ url_for('cadastro') }}">Cadastro</a>
-        <a href="{{ url_for('login') }}">Login</a>
-        <a href="{{ url_for('agendamento') }}">Agendamento</a>
-        <a href="{{ url_for('admin_locais') }}">Admin Locais</a>
-        <a href="{{ url_for('admin_agendamentos') }}">Admin Agendamentos</a>
-        <a href="{{ url_for('admin_usuarios') }}">Admin Usuários</a>
-        <a href="{{ url_for('saibamais') }}">Saiba Mais</a>
+        <div class="nav-left">
+            <a href="{{ url_for('index') }}">Início</a>
+            <a href="{{ url_for('cadastro') }}">Cadastro</a>
+            <a href="{{ url_for('agendamento') }}">Agendamento</a>
+            <a href="{{ url_for('admin_locais') }}">Admin Locais</a>
+            <a href="{{ url_for('admin_agendamentos') }}">Admin Agendamentos</a>
+            <a href="{{ url_for('admin_usuarios') }}">Admin Usuários</a>
+            <a href="{{ url_for('saibamais') }}">Saiba Mais</a>
+        </div>
+        <div class="nav-right">
+            <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+        </div>
     </nav>
-    {% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% with messages = get_flashed_messages() %}
       {% if messages %}
         <ul class="mensagens">
-        {% for category, message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
         </ul>
       {% endif %}
     {% endwith %}
+
     {% block content %}{% endblock %}
 </body>
 </html>
