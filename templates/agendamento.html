@@ -1,20 +1,56 @@
 {% extends "base.html" %}
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='agendamentos.css') }}">
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 {% endblock %}
 {% block content %}
 <div class="agendamento-container">
     <h1>Agendamento</h1>
     <form method="POST">
-        <input type="text" name="nome" placeholder="Nome">
-        <input type="email" name="email" placeholder="Email">
-        <input type="text" name="data" placeholder="Data">
-        <select name="local">
-            {% for l in locais %}
-                <option value="{{ l.nome }}">{{ l.nome }}</option>
-            {% endfor %}
+        <input type="text" name="nome" placeholder="Nome" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="date" name="data" required>
+        <select name="local" id="local-select" required>
+            <option value="">Selecione um ponto de coleta</option>
+            <option value="EcoDescarte Centro">EcoDescarte Centro</option>
+            <option value="EcoDescarte Norte">EcoDescarte Norte</option>
+            <option value="EcoDescarte Sul">EcoDescarte Sul</option>
         </select>
         <button type="submit">Agendar</button>
     </form>
+
+    <h2>Mapa de Pontos de Coleta</h2>
+    <div id="map"></div>
 </div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Inicializa o mapa
+    var map = L.map('map').setView([-22.565, -47.401], 13); // coordenadas fictícias de Limeira-SP
+
+    // Adiciona camada de mapa
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Pontos fictícios de coleta
+    var pontos = [
+        {nome: "EcoDescarte Centro", coords: [-22.565, -47.401]},
+        {nome: "EcoDescarte Norte", coords: [-22.560, -47.395]},
+        {nome: "EcoDescarte Sul", coords: [-22.570, -47.410]}
+    ];
+
+    pontos.forEach(function(p) {
+        var marker = L.marker(p.coords).addTo(map);
+        marker.bindPopup("<b>" + p.nome + "</b><br><button onclick='selecionarLocal(\"" + p.nome + "\")'>Agendar aqui</button>");
+    });
+
+    // Função para selecionar local no formulário
+    function selecionarLocal(nome) {
+        document.getElementById("local-select").value = nome;
+        alert("Local selecionado: " + nome);
+    }
+</script>
 {% endblock %}
