@@ -1,20 +1,16 @@
-body {
-    background-color: #eafaf1;
-    font-family: Arial, sans-serif;
-}
-
 .saiba-container {
-    background: white;
-    padding: 30px;
+    background: url("saibamais.png") no-repeat right center;
+    background-size: 250px auto;
+    background-color: white;
+    padding: 40px;
     margin: 50px auto;
-    width: 600px;
+    width: 700px;
     border-radius: 10px;
     box-shadow: 0 0 10px #ccc;
 }
 
 .saiba-container h1 {
     color: #2c3e50;
-    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -26,10 +22,4 @@ body {
 .saiba-container ul {
     list-style: square;
     margin-left: 20px;
-}
-
-.saiba-container img {
-    display: block;
-    margin: 20px auto;
-    max-width: 300px;
 }
