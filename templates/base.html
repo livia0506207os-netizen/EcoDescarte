@@ -5,19 +5,53 @@
     <title>EcoDescarte</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
     {% block head %}{% endblock %}
+    <style>
+        /* Ajuste da barra de navegação para ficar mais harmoniosa */
+        nav {
+            background-color: #2c3e50;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav .nav-left a {
+            color: #ecf0f1;
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav .nav-left a:hover {
+            color: #1abc9c;
+        }
+        nav .nav-right a {
+            background-color: #1abc9c;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        nav .nav-right a:hover {
+            background-color: #16a085;
+        }
+    </style>
 </head>
 <body>
     <nav>
         <div class="nav-left">
             <a href="{{ url_for('index') }}">Início</a>
             <a href="{{ url_for('cadastro') }}">Cadastro</a>
+            <a href="{{ url_for('login') }}">Login</a>
             <a href="{{ url_for('agendamento') }}">Agendamento</a>
-            <a href="{{ url_for('admin_agendamentos') }}">Admin Agendamentos</a>
-            <a href="{{ url_for('admin_usuarios') }}">Admin Usuários</a>
             <a href="{{ url_for('saibamais') }}">Saiba Mais</a>
+            <a href="{{ url_for('admin_usuarios') }}">Admin Usuários</a>
+            <a href="{{ url_for('admin_agendamentos') }}">Admin Agendamentos</a>
         </div>
         <div class="nav-right">
-            <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+            <!-- Botão de login destacado -->
+            <a href="{{ url_for('login') }}" class="login-btn">Entrar</a>
         </div>
     </nav>
 
