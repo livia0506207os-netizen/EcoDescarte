@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key = "chave-secreta"
 
-# Configuração do banco (Render usa variável DATABASE_URL)
+# Configuração do banco (Render usa DATABASE_URL)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -33,7 +33,6 @@ class Local(db.Model):
     latitude = db.Column(db.String(50))
     longitude = db.Column(db.String(50))
 
-# Cria tabelas automaticamente
 with app.app_context():
     db.create_all()
 
@@ -99,6 +98,9 @@ def admin_usuarios():
     usuarios = Usuario.query.all()
     return render_template("admin_usuarios.html", usuarios=usuarios)
 
-# ----------------- MAIN -----------------
+@app.route("/saibamais")
+def saibamais():
+    return render_template("saibamais.html")
+
 if __name__ == "__main__":
     app.run(debug=True)

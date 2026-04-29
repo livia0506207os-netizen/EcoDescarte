@@ -2,24 +2,28 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}EcoDescarte{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    {% block extra_css %}{% endblock %}
+    <title>EcoDescarte</title>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="{{ url_for('index') }}">Início</a>
-            <a href="{{ url_for('agendamento') }}">Agendamento</a>
-            <a href="{{ url_for('cadastro') }}">Cadastro</a>
-            <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('admin_locais') }}">Admin</a>
-            <a href="{{ url_for('saibamais') }}">Saiba Mais</a>
-        </nav>
-    </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-    {% block extra_js %}{% endblock %}
+    <nav>
+        <a href="{{ url_for('index') }}">Início</a>
+        <a href="{{ url_for('cadastro') }}">Cadastro</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('agendamento') }}">Agendamento</a>
+        <a href="{{ url_for('admin_locais') }}">Admin Locais</a>
+        <a href="{{ url_for('admin_agendamentos') }}">Admin Agendamentos</a>
+        <a href="{{ url_for('admin_usuarios') }}">Admin Usuários</a>
+        <a href="{{ url_for('saibamais') }}">Saiba Mais</a>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
 </body>
 </html>

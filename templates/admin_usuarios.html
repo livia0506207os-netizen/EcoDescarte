@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin - Usuários</title>
-</head>
-<body>
-    <h1>Usuários cadastrados</h1>
-    {% if usuarios %}
-        <ul>
-        {% for u in usuarios %}
-            <li>{{ u.nome }} - {{ u.email }}</li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>Nenhum usuário cadastrado ainda.</p>
-    {% endif %}
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<h1>Usuários cadastrados</h1>
+{% if usuarios %}
+    <ul>
+    {% for u in usuarios %}
+        <li>{{ u.nome }} - {{ u.email }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Nenhum usuário cadastrado ainda.</p>
+{% endif %}
+{% endblock %}

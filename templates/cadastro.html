@@ -1,13 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Cadastro{% endblock %}
 {% block content %}
-<section>
-    <h2>Cadastro de Usuário</h2>
-    <form method="POST">
-        <input type="text" name="nome" placeholder="Nome completo" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="senha" placeholder="Senha" required>
-        <button type="submit">Cadastrar</button>
-    </form>
-</section>
+<h1>Cadastro</h1>
+<form method="POST">
+    Nome: <input type="text" name="nome"><br>
+    Email: <input type="email" name="email"><br>
+    Senha: <input type="password" name="senha"><br>
+    <button type="submit">Cadastrar</button>
+</form>
 {% endblock %}

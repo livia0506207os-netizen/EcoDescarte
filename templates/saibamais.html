@@ -1,28 +1,6 @@
 {% extends "base.html" %}
-{% block title %}Saiba Mais{% endblock %}
-{% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='saibamais.css') }}">
-{% endblock %}
 {% block content %}
-<section class="saiba-hero">
-    <div class="texto">
-        <h2>Saiba Mais</h2>
-        <p>O descarte correto de lixo eletrônico ajuda a proteger o meio ambiente e evita a contaminação do solo e da água.</p>
-        <p>Participe das campanhas de conscientização e leve seus equipamentos antigos para os pontos de coleta.</p>
-        <ul>
-            <li>Pilhas</li>
-            <li>Baterias</li>
-            <li>Computadores</li>
-            <li>Impressoras</li>
-            <li>Mouses</li>
-            <li>Cabos</li>
-            <li>Smartphones</li>
-            <li>Carregadores</li>
-            <li>Micro-ondas</li>
-        </ul>
-    </div>
-    <div class="imagem">
-        <img src="{{ url_for('static', filename='saibamais.png') }}" alt="E-lixo">
-    </div>
-</section>
+<h1>Saiba Mais</h1>
+<p>O EcoDescarte é um projeto para facilitar o descarte consciente de lixo eletrônico,
+conectando usuários a pontos de coleta e promovendo sustentabilidade.</p>
 {% endblock %}

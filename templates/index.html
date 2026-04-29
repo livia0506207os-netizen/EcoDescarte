@@ -1,20 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Início{% endblock %}
-{% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-{% endblock %}
 {% block content %}
-<section class="hero">
-    <div class="hero-text">
-        <h1>Bem-vindo ao EcoDescarte</h1>
-        <p>Encontre locais para descartar seu lixo eletrônico de forma correta.</p>
-        <div class="buttons">
-            <a href="{{ url_for('agendamento') }}" class="btn">Pontos de coleta</a>
-            <a href="{{ url_for('saibamais') }}" class="btn">Saiba mais</a>
-        </div>
-    </div>
-    <div class="hero-image">
-        <img src="{{ url_for('static', filename='lixoeletronico.png') }}" alt="Lixeira de e-lixo">
-    </div>
-</section>
+<h1>Bem-vindo ao EcoDescarte</h1>
+<p>Plataforma para cadastro e agendamento de descarte de lixo eletrônico.</p>
 {% endblock %}
