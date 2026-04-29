@@ -4,13 +4,9 @@
 {% endblock %}
 {% block content %}
 <h1>Locais cadastrados</h1>
-{% if locais %}
-    <ul>
+<ul>
     {% for l in locais %}
         <li>{{ l.nome }} - {{ l.endereco }}</li>
     {% endfor %}
-    </ul>
-{% else %}
-    <p>Nenhum local cadastrado ainda.</p>
-{% endif %}
+</ul>
 {% endblock %}

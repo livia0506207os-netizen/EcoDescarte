@@ -4,13 +4,9 @@
 {% endblock %}
 {% block content %}
 <h1>Usuários cadastrados</h1>
-{% if usuarios %}
-    <ul>
+<ul>
     {% for u in usuarios %}
         <li>{{ u.nome }} - {{ u.email }}</li>
     {% endfor %}
-    </ul>
-{% else %}
-    <p>Nenhum usuário cadastrado ainda.</p>
-{% endif %}
+</ul>
 {% endblock %}

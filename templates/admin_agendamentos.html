@@ -4,13 +4,9 @@
 {% endblock %}
 {% block content %}
 <h1>Agendamentos</h1>
-{% if agendamentos %}
-    <ul>
+<ul>
     {% for a in agendamentos %}
         <li>{{ a.nome }} - {{ a.email }} - {{ a.data }} - {{ a.local }}</li>
     {% endfor %}
-    </ul>
-{% else %}
-    <p>Nenhum agendamento realizado ainda.</p>
-{% endif %}
+</ul>
 {% endblock %}
