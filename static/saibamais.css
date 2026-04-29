@@ -1,33 +1,36 @@
-.saiba-container {
-    background: url("../static/saibamais.png") no-repeat right center;
-    background-size: 280px auto;
-    background-color: #fff;
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: url("../static/saibamais.png") no-repeat center center fixed;
+    background-size: cover; /* cobre todo o fundo */
+}
+
+.saiba-box {
+    background: rgba(255,255,255,0.9); /* caixa branca semi-transparente */
     padding: 40px;
-    margin: 60px auto;
-    width: 850px;
+    margin: 80px auto;
+    width: 700px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.saiba-text {
-    max-width: 500px;
-}
-
-.saiba-container h1 {
+.saiba-box h1 {
     color: #2c3e50;
     margin-bottom: 20px;
     font-size: 2em;
 }
 
-.saiba-container p {
+.saiba-box h3 {
+    margin-top: 20px;
+    color: #27ae60;
+}
+
+.saiba-box p {
     margin-bottom: 15px;
     line-height: 1.6;
 }
 
-.saiba-container ul {
+.saiba-box ul {
     list-style: square;
     margin-left: 20px;
 }
