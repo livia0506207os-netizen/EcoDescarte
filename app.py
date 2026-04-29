@@ -113,6 +113,25 @@ def admin_agendamentos():
     return render_template("admin_agendamentos.html", agendamentos=agendamentos)
 
 # ------------------------
+# ADMIN - EXCLUSÃO
+# ------------------------
+@app.route("/admin/usuarios/delete/<int:id>", methods=["POST"])
+def delete_usuario(id):
+    usuario = Usuario.query.get_or_404(id)
+    db.session.delete(usuario)
+    db.session.commit()
+    flash("Usuário excluído com sucesso!")
+    return redirect(url_for("admin_usuarios"))
+
+@app.route("/admin/agendamentos/delete/<int:id>", methods=["POST"])
+def delete_agendamento(id):
+    agendamento = Agendamento.query.get_or_404(id)
+    db.session.delete(agendamento)
+    db.session.commit()
+    flash("Agendamento excluído com sucesso!")
+    return redirect(url_for("admin_agendamentos"))
+
+# ------------------------
 # INICIALIZAÇÃO
 # ------------------------
 if __name__ == "__main__":

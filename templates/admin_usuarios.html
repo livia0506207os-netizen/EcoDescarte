@@ -1,12 +1,24 @@
 {% extends "base.html" %}
-{% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
-{% endblock %}
 {% block content %}
-<h1>Usuários cadastrados</h1>
-<ul>
-    {% for u in usuarios %}
-        <li>{{ u.nome }} - {{ u.email }}</li>
+<h1>Admin Usuários</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ações</th>
+    </tr>
+    {% for usuario in usuarios %}
+    <tr>
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.nome }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>
+            <form action="{{ url_for('delete_usuario', id=usuario.id) }}" method="POST" style="display:inline;">
+                <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</button>
+            </form>
+        </td>
+    </tr>
     {% endfor %}
-</ul>
+</table>
 {% endblock %}
