@@ -1,22 +1,18 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+import os
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
-import os, json
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.secret_key = "segredo-super-seguro"
+app.secret_key = "chave-secreta"
 
-# Configuração do banco
-db_url = os.environ.get("DATABASE_URL")
-if db_url and db_url.startswith("postgres://"):
-    db_url = db_url.replace("postgres://", "postgresql+pg8000://")
-else:
-    db_url = "sqlite:///local.db"
+# Configuração do banco (Render usa variável DATABASE_URL)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-app.config["SQLALCHEMY_DATABASE_URI"] = db_url
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
-# Modelos
+# ----------------- MODELOS -----------------
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
@@ -34,30 +30,28 @@ class Local(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
     endereco = db.Column(db.String(200), nullable=False)
-    latitude = db.Column(db.String(50), nullable=True)
-    longitude = db.Column(db.String(50), nullable=True)
+    latitude = db.Column(db.String(50))
+    longitude = db.Column(db.String(50))
 
+# Cria tabelas automaticamente
 with app.app_context():
     db.create_all()
 
-# Rotas
+# ----------------- ROTAS -----------------
 @app.route("/")
 def index():
     return render_template("index.html")
-
-@app.route("/saibamais")
-def saibamais():
-    return render_template("saibamais.html")
 
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
     if request.method == "POST":
         nome = request.form["nome"]
         email = request.form["email"]
-        senha = request.form["senha"]
-        novo_usuario = Usuario(nome=nome, email=email, senha=senha)
-        db.session.add(novo_usuario)
+        senha = generate_password_hash(request.form["senha"])
+        usuario = Usuario(nome=nome, email=email, senha=senha)
+        db.session.add(usuario)
         db.session.commit()
+        flash("Usuário cadastrado com sucesso!", "success")
         return redirect(url_for("login"))
     return render_template("cadastro.html")
 
@@ -66,59 +60,45 @@ def login():
     if request.method == "POST":
         email = request.form["email"]
         senha = request.form["senha"]
-        usuario = Usuario.query.filter_by(email=email, senha=senha).first()
-        if usuario:
+        usuario = Usuario.query.filter_by(email=email).first()
+        if usuario and check_password_hash(usuario.senha, senha):
             session["usuario_id"] = usuario.id
+            flash("Login realizado com sucesso!", "success")
             return redirect(url_for("index"))
         else:
-            return "Login inválido"
+            flash("Email ou senha inválidos", "danger")
     return render_template("login.html")
-
-@app.route("/logout")
-def logout():
-    session.pop("usuario_id", None)
-    return redirect(url_for("index"))
 
 @app.route("/agendamento", methods=["GET", "POST"])
 def agendamento():
-    locais = Local.query.all()
     if request.method == "POST":
         nome = request.form["nome"]
         email = request.form["email"]
         data = request.form["data"]
         local = request.form["local"]
-
-        novo_agendamento = Agendamento(nome=nome, email=email, data=data, local=local)
-        db.session.add(novo_agendamento)
+        agendamento = Agendamento(nome=nome, email=email, data=data, local=local)
+        db.session.add(agendamento)
         db.session.commit()
+        flash("Agendamento realizado com sucesso!", "success")
         return redirect(url_for("index"))
-
-    locais_json = json.dumps([{
-        "nome": l.nome,
-        "endereco": l.endereco,
-        "latitude": l.latitude,
-        "longitude": l.longitude
-    } for l in locais]) if locais else "[]"
-
-    return render_template("agendamento.html", locais=locais, locais_json=locais_json)
-
-@app.route("/admin/locais", methods=["GET", "POST"])
-def admin_locais():
-    if request.method == "POST":
-        nome = request.form["nome"]
-        endereco = request.form["endereco"]
-        latitude = request.form.get("latitude")
-        longitude = request.form.get("longitude")
-        novo_local = Local(nome=nome, endereco=endereco, latitude=latitude, longitude=longitude)
-        db.session.add(novo_local)
-        db.session.commit()
-        return redirect(url_for("admin_locais"))
-
     locais = Local.query.all()
-    usuarios = Usuario.query.all()
-    agendamentos = Agendamento.query.all()
-    return render_template("admin_locais.html", locais=locais, usuarios=usuarios, agendamentos=agendamentos)
+    return render_template("agendamento.html", locais=locais)
 
+@app.route("/admin/locais")
+def admin_locais():
+    locais = Local.query.all()
+    return render_template("admin_locais.html", locais=locais)
+
+@app.route("/admin/agendamentos")
+def admin_agendamentos():
+    agendamentos = Agendamento.query.all()
+    return render_template("admin_agendamentos.html", agendamentos=agendamentos)
+
+@app.route("/admin/usuarios")
+def admin_usuarios():
+    usuarios = Usuario.query.all()
+    return render_template("admin_usuarios.html", usuarios=usuarios)
+
+# ----------------- MAIN -----------------
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)

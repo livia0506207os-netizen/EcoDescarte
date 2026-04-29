@@ -1,38 +1,19 @@
-{% extends "base.html" %}
-{% block title %}Admin - Locais{% endblock %}
-{% block content %}
-<section class="admin-section">
-    <h2>Gerenciar Locais de Coleta</h2>
-    <form method="POST">
-        <input type="text" name="nome" placeholder="Nome do local" required>
-        <input type="text" name="endereco" placeholder="Endereço" required>
-        <input type="text" name="latitude" placeholder="Latitude">
-        <input type="text" name="longitude" placeholder="Longitude">
-        <button type="submit">Adicionar Local</button>
-    </form>
-
-    <h3>Locais cadastrados</h3>
-    <table>
-        <tr><th>ID</th><th>Nome</th><th>Endereço</th><th>Latitude</th><th>Longitude</th></tr>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Locais</title>
+</head>
+<body>
+    <h1>Locais cadastrados</h1>
+    {% if locais %}
+        <ul>
         {% for l in locais %}
-        <tr><td>{{ l.id }}</td><td>{{ l.nome }}</td><td>{{ l.endereco }}</td><td>{{ l.latitude }}</td><td>{{ l.longitude }}</td></tr>
+            <li>{{ l.nome }} - {{ l.endereco }}</li>
         {% endfor %}
-    </table>
-
-    <h3>Usuários cadastrados</h3>
-    <table>
-        <tr><th>ID</th><th>Nome</th><th>Email</th></tr>
-        {% for u in usuarios %}
-        <tr><td>{{ u.id }}</td><td>{{ u.nome }}</td><td>{{ u.email }}</td></tr>
-        {% endfor %}
-    </table>
-
-    <h3>Agendamentos</h3>
-    <table>
-        <tr><th>ID</th><th>Nome</th><th>Email</th><th>Data</th><th>Local</th></tr>
-        {% for a in agendamentos %}
-        <tr><td>{{ a.id }}</td><td>{{ a.nome }}</td><td>{{ a.email }}</td><td>{{ a.data }}</td><td>{{ a.local }}</td></tr>
-        {% endfor %}
-    </table>
-</section>
-{% endblock %}
+        </ul>
+    {% else %}
+        <p>Nenhum local cadastrado ainda.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,23 +1,19 @@
-{% extends "base.html" %}
-{% block title %}Admin - Usuários{% endblock %}
-{% block content %}
-<section class="admin-section">
-    <h2>Usuários cadastrados</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th><th>Nome</th><th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for u in usuarios %}
-            <tr>
-                <td>{{ u.id }}</td>
-                <td>{{ u.nome }}</td>
-                <td>{{ u.email }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</section>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Usuários</title>
+</head>
+<body>
+    <h1>Usuários cadastrados</h1>
+    {% if usuarios %}
+        <ul>
+        {% for u in usuarios %}
+            <li>{{ u.nome }} - {{ u.email }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum usuário cadastrado ainda.</p>
+    {% endif %}
+</body>
+</html>
