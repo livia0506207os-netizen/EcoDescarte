@@ -1,5 +1,5 @@
 .hero {
-    background-image: url("{{ url_for('static', filename='lixoeletronico.png') }}");
+    background-image: url("../static/lixoeletronico.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -12,8 +12,31 @@
 }
 
 .hero-text {
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
     padding: 30px;
     border-radius: 10px;
 }
 
+.hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background: #27ae60;
+    color: white;
+    padding: 12px 25px;
+    margin: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #219150;
+}
