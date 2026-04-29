@@ -1,41 +1,47 @@
-.login-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+body {
     background: url("folhas.jpg") no-repeat center center fixed;
     background-size: cover;
+    font-family: Arial, sans-serif;
 }
 
 .login-container {
-    background: rgba(255,255,255,0.9);
-    padding: 40px;
-    border-radius: 12px;
+    background: rgba(255,255,255,0.85);
+    padding: 30px;
+    margin: 80px auto;
+    width: 300px;
+    border-radius: 10px;
     text-align: center;
-    width: 350px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-.login-container h2 {
+.login-container h1 {
     margin-bottom: 20px;
-    color: #2e7d32;
+    color: #2c3e50;
 }
 
 .login-container input {
-    width: 100%;
-    padding: 12px;
+    width: 90%;
+    padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 5px;
 }
 
-.btn-login {
-    width: 100%;
-    padding: 12px;
-    background: #2e7d32;
+.login-container button {
+    width: 95%;
+    padding: 10px;
+    background-color: #27ae60;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #219150;
+}
+
+.social-login img {
+    width: 40px;
+    margin: 10px;
     cursor: pointer;
 }

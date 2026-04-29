@@ -1,16 +1,20 @@
 {% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='agendamentos.css') }}">
+{% endblock %}
 {% block content %}
-<h1>Agendamento</h1>
-<form method="POST">
-    Nome: <input type="text" name="nome"><br>
-    Email: <input type="email" name="email"><br>
-    Data: <input type="text" name="data"><br>
-    Local:
-    <select name="local">
-        {% for l in locais %}
-            <option value="{{ l.nome }}">{{ l.nome }}</option>
-        {% endfor %}
-    </select><br>
-    <button type="submit">Agendar</button>
-</form>
+<div class="agendamento-container">
+    <h1>Agendamento</h1>
+    <form method="POST">
+        <input type="text" name="nome" placeholder="Nome">
+        <input type="email" name="email" placeholder="Email">
+        <input type="text" name="data" placeholder="Data">
+        <select name="local">
+            {% for l in locais %}
+                <option value="{{ l.nome }}">{{ l.nome }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Agendar</button>
+    </form>
+</div>
 {% endblock %}

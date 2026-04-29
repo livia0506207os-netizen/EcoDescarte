@@ -1,45 +1,41 @@
-.form-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 0;
-    background: #f5f5f5;
+body {
+    background-color: #eafaf1;
+    font-family: Arial, sans-serif;
 }
 
-.form-container {
+.cadastro-container {
     background: white;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    text-align: center;
+    margin: 50px auto;
     width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+    text-align: center;
 }
 
-.form-container h2 {
-    color: #2e7d32;
+.cadastro-container h1 {
+    color: #2c3e50;
     margin-bottom: 20px;
 }
 
-.form-container input {
-    width: 100%;
-    padding: 12px;
+.cadastro-container input {
+    width: 90%;
+    padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 5px;
 }
 
-.form-container button {
-    width: 100%;
-    padding: 12px;
-    background: #2e7d32;
+.cadastro-container button {
+    width: 95%;
+    padding: 10px;
+    background-color: #27ae60;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-weight: bold;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-
-
-
-
+.cadastro-container button:hover {
+    background-color: #219150;
+}

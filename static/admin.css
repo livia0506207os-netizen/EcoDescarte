@@ -1,70 +1,25 @@
-.admin-section {
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 800px;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+body {
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
 }
 
-.admin-section h2 {
-    margin-bottom: 15px;
+h1 {
+    text-align: center;
     color: #2c3e50;
-}
-
-/* Formulário */
-.admin-section form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.admin-section input {
-    flex: 1 1 45%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.admin-section button {
-    flex: 1 1 100%;
-    padding: 10px;
-    background: #27ae60;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.admin-section button:hover {
-    background: #219150;
-}
-
-/* Tabela */
-.admin-section table {
-    width: 100%;
-    border-collapse: collapse;
     margin-top: 20px;
 }
 
-.admin-section th,
-.admin-section td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px auto;
+    width: 60%;
 }
 
-.admin-section th {
-    background: #2c3e50;
-    color: #fff;
-}
-
-.admin-section tr:nth-child(even) {
-    background: #f9f9f9;
-}
-
-.admin-section tr:hover {
-    background: #f1f1f1;
+ul li {
+    background: white;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ccc;
 }

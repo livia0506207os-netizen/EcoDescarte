@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>EcoDescarte</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block head %}{% endblock %}
 </head>
 <body>
     <nav>
@@ -17,7 +19,7 @@
     </nav>
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-        <ul>
+        <ul class="mensagens">
         {% for category, message in messages %}
           <li>{{ message }}</li>
         {% endfor %}

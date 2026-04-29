@@ -1,22 +1,35 @@
-.saiba-hero {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 40px;
-    background: #e0f7e9;
+body {
+    background-color: #eafaf1;
+    font-family: Arial, sans-serif;
 }
-.saiba-hero .texto {
-    max-width: 50%;
+
+.saiba-container {
+    background: white;
+    padding: 30px;
+    margin: 50px auto;
+    width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
 }
-.saiba-hero h2 {
-    font-size: 2em;
+
+.saiba-container h1 {
     color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
 }
-.saiba-hero ul {
-    margin-top: 15px;
-    list-style: disc;
-    padding-left: 20px;
+
+.saiba-container p {
+    margin-bottom: 15px;
+    line-height: 1.5;
 }
-.saiba-hero .imagem img {
+
+.saiba-container ul {
+    list-style: square;
+    margin-left: 20px;
+}
+
+.saiba-container img {
+    display: block;
+    margin: 20px auto;
     max-width: 300px;
 }
