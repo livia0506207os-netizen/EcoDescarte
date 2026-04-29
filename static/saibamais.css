@@ -1,25 +1,19 @@
 .saiba-container {
-    background: url("saibamais.png") no-repeat right center;
-    background-size: 250px auto;
+    background-image: url("{{ url_for('static', filename='saibamais.png') }}");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 300px auto;
     background-color: white;
     padding: 40px;
     margin: 50px auto;
-    width: 700px;
+    width: 800px;
     border-radius: 10px;
     box-shadow: 0 0 10px #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.saiba-container h1 {
-    color: #2c3e50;
-    margin-bottom: 20px;
-}
-
-.saiba-container p {
-    margin-bottom: 15px;
-    line-height: 1.5;
-}
-
-.saiba-container ul {
-    list-style: square;
-    margin-left: 20px;
+.saiba-text {
+    max-width: 450px;
 }

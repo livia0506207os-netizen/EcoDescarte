@@ -4,11 +4,13 @@
 {% endblock %}
 {% block content %}
 <div class="hero">
-    <h1>Encontre locais para descartar seu lixo eletrônico</h1>
-    <p>Descarte de forma correta</p>
-    <div class="botoes">
-        <a href="{{ url_for('agendamento') }}" class="btn">Pontos de coleta</a>
-        <a href="{{ url_for('saibamais') }}" class="btn">Saiba mais</a>
+    <div class="hero-text">
+        <h1>Encontre locais para descartar seu lixo eletrônico</h1>
+        <p>Descarte de forma correta</p>
+        <div class="botoes">
+            <a href="{{ url_for('agendamento') }}" class="btn">Pontos de coleta</a>
+            <a href="{{ url_for('saibamais') }}" class="btn">Saiba mais</a>
+        </div>
     </div>
 </div>
 {% endblock %}
